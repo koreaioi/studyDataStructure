@@ -15,8 +15,7 @@ public class ac9012 {
             }
         }
         //검증 끝났는데 아직 남아있으면
-        if(!st.isEmpty()) return false;
-        return true;
+        return st.isEmpty();
     }
 
     public static void main(String[] args) {
