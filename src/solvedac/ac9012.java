@@ -29,5 +29,6 @@ public class ac9012 {
             else sb.append("NO\n");
         }
         System.out.println(sb);
+        sc.close();
     }
 }
