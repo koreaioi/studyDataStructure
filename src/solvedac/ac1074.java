@@ -20,10 +20,10 @@ public class ac1074 {
     }
     //변의 길이는 1/2씩 줄어든다.
     /*
-    * 1사분면 size는 1/2배 r과 c도 그대로
-    * 2사분면 size는 1/2배 c가 size/2 만큼 상대위치 감소
-    * 3사분면 size는 1/2배 r이 size/2 만큼 상대위치 감소
-    * 4사분면 size는 1/2배 r과 c가 size/2 만큼 상대위치 감소
+    * 1사분면 size 1/2배, r과 c도 그대로
+    * 2사분면 size 1/2배, c가 size/2 만큼 상대위치 감소
+    * 3사분면 size 1/2배, r이 size/2 만큼 상대위치 감소
+    * 4사분면 size 1/2배, r과 c가 size/2 만큼 상대위치 감소
     * */
     public static void findZ(int size, int r, int c) {
         if(size ==1) return;
