@@ -39,6 +39,8 @@ public class ac1259 {
 <details>
 <summary>DFS</summary>
     ```java
+
+    
     public void DFS(int start){
         ch[start] = 1;
         sb.append(start + " ");
@@ -47,7 +49,7 @@ public class ac1259 {
             if(arr[start][i] == 1 && ch[i]==0]) DFS(i);
         }          
     }
-}
+
 
 
     
