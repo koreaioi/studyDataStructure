@@ -2,9 +2,11 @@
 
 
 
+
+
+
 <details>
 <summary>백준 1259번 </summary>
-
 [백준1259번](src/solvedac/ac1259.java)
 
 ```java
@@ -32,6 +34,25 @@ public class ac1259 {
     }
 }
 ```
-
-
 </details>
+
+<details>
+<summary>DFS</summary>
+    ```java
+    public void DFS(int start){
+        ch[start] = 1;
+        sb.append(start + " ");
+
+        for(int i = 1;i<=node;i++){
+            if(arr[start][i] == 1 && ch[i]==0]) DFS(i);
+        }          
+    }
+}
+
+
+    
+
+    
+</details>
+
+
