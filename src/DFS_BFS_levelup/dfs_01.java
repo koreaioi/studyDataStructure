@@ -3,7 +3,6 @@
 
     public class dfs_01 {
         static int[] arr;
-        static boolean[] ch;
         static int n;
         static int sum1=0, sum2 = 0;
 
@@ -11,7 +10,7 @@
             //ch[index] = false 인상황
             if (L == n) {
                 sum1 = 0;
-                sum2=0;
+                sum2 = 0;
                 Calculate(str);
             }else {
                 String str1 = (str + "0");
@@ -23,9 +22,6 @@
 
 
         public static void Calculate(String str) {
-
-
-
             for (int i = 0; i < str.length(); i++) {
                 if (str.charAt(i) == '1') {
                     sum1 += arr[i];
@@ -44,9 +40,7 @@
             Scanner sc = new Scanner(System.in);
             n = sc.nextInt();
             arr = new int[n];
-            ch = new boolean[n];
             for (int i = 0; i < n; i++) arr[i] = sc.nextInt();
-
 
             DFS(0, "");
 
