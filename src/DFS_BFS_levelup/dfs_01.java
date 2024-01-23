@@ -20,7 +20,6 @@
             }
         }
 
-
         public static void Calculate(String str) {
             for (int i = 0; i < str.length(); i++) {
                 if (str.charAt(i) == '1') {
@@ -35,7 +34,6 @@
             }
         }
 
-
         public static void main(String[] args) {
             Scanner sc = new Scanner(System.in);
             n = sc.nextInt();
@@ -43,7 +41,6 @@
             for (int i = 0; i < n; i++) arr[i] = sc.nextInt();
 
             DFS(0, "");
-
             System.out.println("NO");
         }
     }
