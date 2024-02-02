@@ -1,3 +1,4 @@
+/*
 package DataStructure;
 
 interface Stack {
@@ -22,3 +23,4 @@ public class  MyStack implements Stack{
 
 
 }
+*/
