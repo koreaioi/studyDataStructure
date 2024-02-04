@@ -5,29 +5,23 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class dfs_14_myself {
-    public static int n, m;
-    public static int[][] board;
-    public static int[] dis, ch, pm;
+    public static int n, m, sum;
+    public static int[] dis, ch;
     public static House[] house;
     public static Pizza[] pizza;
-    public static int count;
     public static int answer = Integer.MAX_VALUE;
-    public static int sum;
 
     public static void DFS(int L, int s) {
         if (L == m) {
             Arrays.fill(dis, Integer.MAX_VALUE); //계산하기 전에 dis를 초기화 해줘야한다.
             calc();
-            sum = Arrays.stream(dis).sum();
-            answer = Math.min(answer, sum);
+            answer = Math.min(answer, Arrays.stream(dis).sum());
         } else {
             for (int i = s; i < pizza.length; i++) { //조합 구하기 복습해야함.
                 ch[L] = i;
                 DFS(L + 1, i + 1);
             }
-
         }
-
     }
 
     public static void calc() {
