@@ -36,7 +36,6 @@ public class ac1620 {
             }
         }
         System.out.println(sb);
-
     }
 
     static class Pokemon implements Comparable<Pokemon>{
