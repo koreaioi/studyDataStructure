@@ -1,12 +1,10 @@
 package GreedyAlgorithm;
-import java.sql.Time;
 import java.util.*;
 
-public class greedy_02_myself {
+public class greedy_02_solution {
 
     public static int n;
     public static Time[] times;
-    public static HashMap<Integer, Integer> HM;
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -15,26 +13,24 @@ public class greedy_02_myself {
         for (int i = 0; i < n; i++) {
             int n1 = sc.nextInt();
             int n2 = sc.nextInt();
-/*
             times[i] = new Time(n1, n2);
-*/
-            if(HM.getOrDefault(n1, Integer.MAX_VALUE) < n2)HM.put(n1, n2);
-            else HM.put(n1, HM.get(n1));
         }
         Arrays.sort(times);
-        ArrayList<Integer> al = new ArrayList<>(HM.keySet());
-        Collections.sort(al);
 
-        for (int x : al) {
-            System.out.println(x + " " + HM.get(x));
+        for (Time t : times) {
+            System.out.println(t.first + " " +t.end);
+        }
+        int previous_time=0;
+        int count=0;
+
+        for (int i = 0; i < times.length; i++) {
+            if (previous_time <= times[i].first) {
+                previous_time = times[i].end;
+                count++;
+            }
         }
 
-
-/*        for (Time t : times) {
-            System.out.println(t.first + " " +t.end);
-        }*/
-
-
+        System.out.println(count);
     }
 
     static class Time implements Comparable<Time>{
@@ -45,13 +41,12 @@ public class greedy_02_myself {
             this.end = end;
         }
 
-
         @Override
         public int compareTo(Time o) {
-            if(first == o.first){
-                return end - o.end;
+            if(end == o.end){
+                return first - o.first;
             }
-            return first - o.first;
+            return end - o.end;
         }
     }
 }
