@@ -16,10 +16,10 @@ public class greedy_02_solution {
             times[i] = new Time(n1, n2);
         }
         Arrays.sort(times);
-
+/*
         for (Time t : times) {
             System.out.println(t.first + " " +t.end);
-        }
+        }*/
         int previous_time=0;
         int count=0;
 
