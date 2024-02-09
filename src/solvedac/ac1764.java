@@ -15,16 +15,15 @@ public class ac1764 {
         int m = Integer.parseInt(st.nextToken());
         HashMap<String, Integer> hm = new HashMap<>();
         for (int i = 0; i < n + m; i++) {
-            st = new StringTokenizer(br.readLine());
-            String tmp = st.nextToken();
+            String tmp = br.readLine();
             hm.put(tmp, hm.getOrDefault(tmp, 0) + 1);
+            if(hm.get(tmp) == 2) al.add(tmp);
         }
 
-        for (String tmp : hm.keySet()) {
-            if(1 < hm.get(tmp)) al.add(tmp);
-        }
+
         Collections.sort(al);
-        System.out.println(al.size());
-        for(String tmp : al) System.out.println(tmp);
+        sb.append(al.size() + "\n");
+        for(String tmp : al) sb.append(tmp + "\n");
+        System.out.println(sb);
     }
 }
