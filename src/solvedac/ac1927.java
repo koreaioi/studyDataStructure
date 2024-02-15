@@ -17,9 +17,7 @@ public class ac1927 {
             if(input == 0){
                 if(pq.isEmpty()) sb.append(0 + "\n");
                 else sb.append(pq.poll() + "\n");
-            }else{
-                pq.offer(input);
-            }
+            }else pq.offer(input);
         }
         System.out.println(sb);
 
