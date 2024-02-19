@@ -12,7 +12,6 @@ public class ac2630 {
      * 3 4
      */
 
-
     public static void divide(int y, int x, int size) {
         //row 가로, col 세로
         if (colorCheck(y, x, size)) { //단색만 있는경우
@@ -30,12 +29,14 @@ public class ac2630 {
         divide(y + newsize, x + newsize, newsize);
     }
 
+
+
     public static boolean colorCheck(int row, int col, int size) {
         int color = board[row][col];
 
         for (int i = row; i < row + size; i++) {
             for (int j = col; j < col + size; j++) {
-                if(board[row][col] != color) return false;
+                if(board[i][j] != color) return false;
             }
         }
         return true;
