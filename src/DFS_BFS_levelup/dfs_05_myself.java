@@ -21,8 +21,7 @@ public class dfs_05_myself {
             Node1 tmp = q.poll();
             int SUM = tmp.sum;
             int COUNT = tmp.count;
-            if (COUNT > line || SUM >m) continue;
-            else if(SUM == m) {
+             if(tmp.sum == m) {
                 System.out.println(tmp.count);
                 System.exit(0);
             }else{
@@ -52,10 +51,7 @@ public class dfs_05_myself {
         Integer[] arr = new Integer[n];
         for (int i = 0; i < n; i++) arr[i] = sc.nextInt();
         Arrays.sort(arr, Collections.reverseOrder());
-        int max = arr[0];
-        int min = arr[arr.length - 1];
         m = sc.nextInt();
-        line = (m / max) + (m % max);
 
         BFS(arr);
         /*DFS(0, 0, arr);*/
