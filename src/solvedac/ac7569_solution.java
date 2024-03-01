@@ -19,7 +19,6 @@ class PointXYZ{
     }
 }
 
-//잔디 오류
 
 
 public class ac7569_solution {
