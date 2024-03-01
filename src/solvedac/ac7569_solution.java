@@ -19,6 +19,8 @@ class PointXYZ{
     }
 }
 
+//잔디 오류
+
 public class ac7569_solution {
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     // 6방향을 나타내기 위한 배열
