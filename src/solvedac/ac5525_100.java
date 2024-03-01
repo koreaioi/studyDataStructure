@@ -1,10 +1,11 @@
 package solvedac;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ac5525_100 {
-    static int n, m,count;
+    static int n,m, count,answer;
 
-    //왜 틀린거지...
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         StringBuilder sb = new StringBuilder();
@@ -15,18 +16,13 @@ public class ac5525_100 {
         for (int i = 0; i < m; i++) if(str.charAt(i) == 'I') al.add(i);
         count =0;
 
-        for (int i = 0; i < al.size()-1; i++) {
-            for (int j = i; j < al.size()-1; j++) {
-                int tmp = al.get(j + 1) - al.get(i);
-                if(tmp % 2 !=0) break; //이게 없으면 IIOOI가 맞는 처리됨.
-                if(tmp > 2 * n) break;
-                else if(tmp == 2 * n){
-                    count++;
-                    break;
-                }
-            }
-        }
-        System.out.println(count);
+        for (int i = 1; i < al.size(); i++) {
+            int tmp = al.get(i) - al.get(i - 1);
+            if(tmp ==2)count++;
+            else count=0;
 
+            if(count >= n) answer++;
+        }
+        System.out.println(answer);
     }
 }

@@ -3,29 +3,40 @@ import java.util.*;
 
 public class pratice_myself {
     public static int n,m;
-    public static Integer[] arr;
-    public static int answer = Integer.MAX_VALUE;
-    public static void DFS(int L, int sum) {
-        if(sum > m) return;
-        if(L>= answer) return;
-        if(sum == m){
-            answer = Math.min(answer, L);
-        }else if (sum < m){
+    public static int[] arr, ch,pm;
+
+    public static void DFS(int L) {
+        if (L == m) { //출력
+            for(int x : pm) System.out.print(x + " ");
+            System.out.println();
+        }else{
             for (int i = 0; i < n; i++) {
-                DFS(L + 1, sum + arr[i]);
+                if (ch[i] == 0) { //i가 아직 사용하지 않았을 경우
+                    ch[i] =1;
+                    pm[L] = arr[i];
+                    DFS(L + 1);
+                    ch[i] = 0; //호출한 DFS가 끝나면 다시 체크 배열을 롤백
+                }
             }
         }
     }
 
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         n = sc.nextInt();
-        arr = new Integer[n];
-        for (int i = 0; i < n; i++) arr[i] = sc.nextInt();
         m = sc.nextInt();
-        Arrays.sort(arr, Collections.reverseOrder());
-        DFS(0, 0);
-        System.out.println(answer);
+        arr = new int[n];
+        ch = new int[n];
+        pm = new int[m];
+        for (int i = 0; i < n; i++) arr[i] = sc.nextInt();
+
+        DFS(0);
+
+/*      // test
+        for(int x: arr) System.out.print(x+ " ");*/
+
+
     }
 }
 
