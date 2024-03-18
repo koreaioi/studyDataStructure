@@ -22,24 +22,26 @@ public class ac7569 {
         count = 0;
 
         while (!q.isEmpty()) {
-            Point tmp = q.poll();
             int L = q.size();
 
             for (int i = 0; i < L; i++) {
+                Point tmp = q.poll();
                 for (int j = 0; j < 6; j++) {
                     int nz = tmp.z + dz[j];
                     int ny = tmp.y + dy[j];
                     int nx = tmp.x + dx[j];
-                    if (0 <= nx && nx < x && 0 <= ny && ny < y && 0 <= nz && nz < z
+                    if (0 <= nx && nx < x && 0 <= ny && ny < y && 0 <= nz && nz < z //배열 index 조건
                             && board[nz][ny][nx] == 0 && ch[nz][ny][nx] == 0) {
+                        //board[][][]==0 -> 아직 토마토가 자라지 않고
+                        //ch[][][] ==0 방문하지 않았다면
                         q.add(new Point(nz, ny, nx));
                         ch[nz][ny][nx] = 1;
                         board[nz][ny][nx] = 1;
                     }
                 }
-            }
-            count++;
+            } //회차 종료
 
+            count++;
         }
     }
 
@@ -50,8 +52,8 @@ public class ac7569 {
         x = Integer.parseInt(st.nextToken());
         y = Integer.parseInt(st.nextToken());
         z = Integer.parseInt(st.nextToken());
-        board = new int[z][y][x];
-        ch = new int[z][y][x];
+        board = new int[z][x][y];
+        ch = new int[z][x][y];
         for (int i = 0; i < z; i++) {
             for (int j = 0; j < y; j++) {
                 st = new StringTokenizer(br.readLine());
@@ -65,14 +67,24 @@ public class ac7569 {
                 }
             }
         }
+        for (int[][] arr : board) {
+            for (int[] ar : arr) {
+                for (int x : ar) {
+                    System.out.print(x + " ");
+                }
+                System.out.println();
+            }
+            System.out.println();
+        }
 
 
+        System.out.println(q.size());
         BFS();
         System.out.println(count);
 
 
         //Test_Print
-        for (int[][] arr : ch) {
+        for (int[][] arr : board) {
             for (int[] ar : arr) {
                 for (int x : ar) {
                     System.out.print(x + " ");
@@ -87,7 +99,7 @@ public class ac7569 {
             System.out.println(p.z + " " + p.y + " " + p.x);
         }
 
-    }
+    } //main 종료
     static class Point{
         int x,y, z;
 

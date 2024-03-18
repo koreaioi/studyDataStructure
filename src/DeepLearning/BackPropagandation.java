@@ -16,7 +16,6 @@ public class BackPropagandation {
     static double lr = 0.8; // 학습률(Learning rate) 0.5로 설정
 
 
-
     public static void main(String[] args) {
         System.out.println(" === XOR 딥러닝 입력 값 0, 1 === ");
         //가중치 배열
@@ -25,33 +24,15 @@ public class BackPropagandation {
 
         //전방향 학습
         learning();
+        printAllWeight();
         //출력
         printNodeBothInOut();
         //역전파
         backPropagandation();
-//        //가중치 0계층 수정
-//        System.out.println("0계층 가중치 수정 전");
-//        printWeight(0);
-//        updateWeight(0); //가중치 수정
-//        System.out.println("0계층 가중치 수정 후");
-//        printWeight(0);
-//
-//        System.out.println("======================");
-//
-//
-//        System.out.println("1계층 가중치 수정 전");
-//        printWeight(1);
-//        updateWeight(1 ); //가중치 수정
-//        System.out.println("1계층 가중치 수정 후");
-//        printWeight(1);
-//        System.out.println("======================");
-//
-//        System.out.println("2계층 가중치 수정 전");
-//        printWeight(2);
-//        updateWeight(2 ); //가중치 수정
-//        System.out.println("2계층 가중치 수정 후");
-//        printWeight(2);
 
+        printNodeDelta();
+        System.out.println("\n \t\t === 가중치 수정 완료 === \n");
+        printAllWeight();
         //전방향 학습
         learning();
         //출력
@@ -78,8 +59,8 @@ public class BackPropagandation {
             this.sigmode = 1 / (1 + Math.exp(-1 * output));
         }
 
-        public double differential(double y) { //미분 함수, y에 시그모이드 값을 넣는다.
-            return y * (1-y);
+        public double differential(double sigmode) { //미분 함수, y에 시그모이드 값을 넣는다.
+            return sigmode * (1-sigmode);
         }
     }
 
@@ -176,11 +157,22 @@ public class BackPropagandation {
             }
         }
     }
-
+    public static void printNodeDelta() {
+        System.out.println("\n\n \t\t === 델타(Delta) 출력 ===  \n");
+        int index = 0;
+        for (Node[] tmp : al) {
+            System.out.println(index + " 층 델타 값 출력   ");
+            for (int i = 0; i < tmp.length; i++) {
+                System.out.printf("Node%d 의 Delta : %.4f   ",i,tmp[i].delta);
+            }
+            System.out.println();
+            index++;
+        }
+    }
 
     //input을 가중치 합산하여 활성화 함수로 변환하는 과정을 출력
     public static void printNodeBothInOut() {
-        System.out.println(" \t\t\t\t=== 입력 층 데이터 출력 과정 === ");
+        System.out.println(" \t\t=== 입력 층 데이터 출력 과정 === ");
         for (int i = 0; i < al.get(0).length; i++) {
             System.out.print("노드 " + i + " ");
         }
@@ -188,29 +180,42 @@ public class BackPropagandation {
 
         for (int i = 1; i <= 2; i++) {
             Node[] tmp = al.get(i);
-            System.out.println(" \t\t\t\t=== 은닉 " + i + " 층 변환 과정 출력 === ");
+            System.out.println(" \t\t=== 은닉 " + i + " 층 변환 과정 출력 === ");
             for (Node x : tmp) {
-                System.out.println(x.input + " --- 활성화 함수를 거쳐 ---> " + x.output + "으로 변환");
+//                System.out.println(x.input + " --- 활성화 함수를 거쳐 ---> " + x.output + "으로 변환");
+                System.out.printf("%.2f  --- 활성화 함수를 거쳐 ---> %.2f 으로 변환\n", x.input,x.output);
             }
         }
 
-        System.out.println(" \t\t\t\t=== 출력 층 변환 과정 출력 ===");
+        System.out.println(" \t\t=== 출력 층 변환 과정 출력 ===");
         Node x = al.get(3)[0];
-        System.out.println(x.input + " --- 활성화 함수를 거쳐 ---> " + x.output +"으로 변환");
+//        System.out.println(x.input + " --- 활성화 함수를 거쳐 ---> " + x.output +"으로 변환");
+        System.out.printf("%.2f  --- 활성화 함수를 거쳐 ---> %.2f 으로 변환\n", x.input,x.output);
         System.out.println("오차는 (t - 출력 층의 output) 이므로");
         error = t - x.output;
-        System.out.println("오차는 (" + t + " - " + x.output + " )=  \"" + error + "\" 입니다." );
+//        System.out.println("오차는 (" + t + " - " + x.output + " )=  \"" + error + "\" 입니다." );
+        System.out.printf("오차는 ( %.2f - %.2f ) = \"%.2f\" 입니다.\n", t,x.output,error);
         x.delta = error * x.differential(x.sigmode);
-        System.out.println("오차 신호(delta)는 " + x.delta + "입니다.");
+//        System.out.println("오차 신호(delta)는 " + x.delta + "입니다.");
+        System.out.printf("오차 신호(delta)는 %.2f 입니다\n",x.delta );
     }
 
 
+    public static void printAllWeight() {
+        System.out.println("\n \t\t === 모든 노드의 가중치 출력 === \n\n");
+        printWeight(0);
+        printWeight(1);
+        printWeight(2);
+        System.out.println("\n");
+    }
     //가중치만 보여주는 함수, 갱신이 잘 되었는지 확인
     public static void printWeight(int layer) {
-        for (Node x : al.get(layer)) {
-            for (double v : x.weightOut) {
-                System.out.print(v + " ");
+        int index =0;
+        for(Node node: al.get(layer)){
+            for (int i = 0; i < node.weightOut.length; i++) {
+                System.out.printf("%d계층 Node[%d]의 [%d] 번째 가중치 : %.2f  ",layer,index, i,node.weightOut[i]);
             }
+            index++;
             System.out.println();
         }
     }
