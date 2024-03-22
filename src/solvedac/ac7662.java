@@ -3,24 +3,21 @@ package solvedac;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.PriorityQueue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class ac7662 {
     //우선 순위 큐 기본은 가장 작은 값
     static int t, k;
 
-    static PriorityQueue<Integer> BackQueue = new PriorityQueue<>(Collections.reverseOrder());
-    static PriorityQueue<Integer> FrontQueue = new PriorityQueue<>();
-    static HashMap<Integer, Integer> hm = new HashMap<>();
+    static PriorityQueue<Integer> maxQueue = new PriorityQueue<>(Collections.reverseOrder());
+    static PriorityQueue<Integer> minQueue = new PriorityQueue<>();
+    static Map<Integer, Integer> hm = new HashMap<>();
 
     //이 메서드는 무조건 delete함
-    public static int DeleteToMap(PriorityQueue<Integer> que){
+    public static int DeleteToMap(Queue<Integer> q){
         int num=0;
         while(true){
-            num = que.poll();
+            num = q.poll();
             int count = hm.getOrDefault(num,0);
             if(count == 0) continue; //FQ에는 있지만 BQ가 삭제했을 경우 또는 그 반대
 
@@ -34,44 +31,40 @@ public class ac7662 {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
         StringBuilder sb = new StringBuilder();
 
-        t = Integer.parseInt(st.nextToken());
+        t = Integer.parseInt(br.readLine());
         for (int j = 0; j < t; j++) {
-            st = new StringTokenizer(br.readLine());
-            k = Integer.parseInt(st.nextToken());
+            k = Integer.parseInt(br.readLine());
 
             for (int i = 0; i < k; i++) { //'I', 'D' 연산 시작
-                st = new StringTokenizer(br.readLine());
-                char c = st.nextToken().charAt(0);
-                if (c == 'I') {
+                StringTokenizer st = new StringTokenizer(br.readLine());
+                String s = st.nextToken();
+                if (s.equals("I")) {
                     int tmp = Integer.parseInt(st.nextToken());
-                    FrontQueue.add(tmp);
-                    BackQueue.add(tmp);
+                    maxQueue.add(tmp);
+                    minQueue.add(tmp);
                     hm.put(tmp, hm.getOrDefault(tmp,0) + 1);
                 } // 'I' 에서 삽입하는 과정
                 else { //'D'일 경우
-                    if (hm.size()!=0) { //HashMap에 값이 있을 때 뺀다.
-                        int tmp = Integer.parseInt(st.nextToken());
-                        if (tmp == 1) {
-                            DeleteToMap(BackQueue);
-                        }
-                        else {
-                            DeleteToMap(FrontQueue);
-                        }
-                    }
+                    int tmp = Integer.parseInt(st.nextToken());
+
+                    if(hm.size()==0) continue;
+                    if (tmp == 1) DeleteToMap(maxQueue);
+                    else DeleteToMap(minQueue);
                 }
             } //'I', 'D' 연산 종료
 
             if (hm.size() == 0) sb.append("EMPTY\n");
             else {
-                int n = DeleteToMap(BackQueue);
+                int n = DeleteToMap(maxQueue);
                 sb.append(n).append(" ");
-                sb.append(hm.size() > 0 ? DeleteToMap(FrontQueue) : n).append("\n");
+                if(hm.size()>0) n = DeleteToMap(minQueue);
+                sb.append(n + "\n");
+
             }
         }
-        System.out.println(sb);
+        System.out.println(sb.toString());
 
     }
 }
