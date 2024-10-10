@@ -13,6 +13,7 @@ public class Knapsack {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+        StringBuilder sb = new StringBuilder();
         n = sc.nextInt();
         maxWeight = sc.nextInt();
         weights = new int[n];
@@ -25,10 +26,11 @@ public class Knapsack {
 
         knapsack(0, 0, 0, 0);
 
-        System.out.print("Optimal solution: ");
-        for (int x : bestItems) System.out.print(x + " ");
-        System.out.println("\nMaximum profit: " + maxProfit);
+        sb.append("Optimal solution: ");
+        for (int x : bestItems) sb.append(x + " ");
+        sb.append("\n").append("Maximum profit: ").append(maxProfit);
 
+        System.out.println(sb);
     }
 
     static void knapsack(int i, int currentWeight, int currentProfit, int itemCount) {
@@ -46,11 +48,11 @@ public class Knapsack {
             knapsack(i + 1, currentWeight, currentProfit, itemCount);
 
             // i번째 아이템을 선택하는 경우
-            if (currentWeight + weights[i] <= maxWeight) {
-                currentItems[i] = 1;
-                knapsack(i + 1, currentWeight + weights[i], currentProfit + values[i], itemCount + 1);
-                currentItems[i] = 0;
-            }
+//            if (currentWeight + weights[i] <= maxWeight) {
+            currentItems[i] = 1;
+            knapsack(i + 1, currentWeight + weights[i], currentProfit + values[i], itemCount + 1);
+//            currentItems[i] = 0;
+//          }
         }
     }
 
